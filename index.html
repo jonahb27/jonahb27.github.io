@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Jonah Burian">
+
+    <title>Jonah Burian</title>
+
+    <!-- <link rel="icon" href="favicon.ico"> -->
+
+    <link rel="stylesheet" href="css/an-old-hope.css">
+    <link rel="stylesheet" href="css/index.css">
+<script src="https://unpkg.com/@highlightjs/cdn-assets@10.5.0/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script src="https://unpkg.com/@highlightjs/cdn-assets@10.5.0/languages/go.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+<body>
+    <div class="code" style="display: block; margin-left: auto;margin-right: auto; height: 100%; width: 100%;">
+    #include <a href="resume.pdf">"resume.pdf"</a>
+
+    #define FIRST_NAME  "Jonah"
+    #define LAST_NAME   "Burian"
+
+    void main(int argc, char** argv) {
+
+        char Location[20] = "Philadelpha, PA";
+
+        while (current_year >= 2019 && current_year <= 2023) {
+            char Occupation[20] = "Student"; 
+        }
+
+    }
+
+    struct education {
+        char University[30] = "University of Pennsylvania";
+        char School[40] = "School of Engineering and Applied Sciences";
+        char* Major[20] = {"NETS", "Economics"};
+        // NETS is a specialized program at Penn that combines Computer Science and Systems Engineering
+        char Degree[30] = "Bachelor of Science in Engineering";
+        int Graduation_Year = 2023;
+        char* Minor = "Math";
+        float gpa = 4.0;
+    };
+
+
+    struct tools_and_skills {
+        char** programmming = {"Java", "Elixir", "Solidity", "Python", "HTML", "JavaScript", "R", "Git", "LaTeX", "OCaml", "Rust"};
+        char** software = {"Agile Methodology", "Autodesk Fusion", "Coda", "DynamoDB", "Ink!", "Hardhat", "JIRA", "Postman",
+                            "PETAL stack (Phoenix, Elixir, TailwindCSS, Alpine.js, LiveView)", "Stash", "Substrate", "Swagger", "Truffle", "Web3"
+        };
+    };
+
+    void contact() {
+        <span class="hljs-keyword">link</span> email = <a href="mailto:burianj@seas.upenn.edu">"burianj@seas.upenn.edu"</a>;
+        <span class="hljs-keyword">link</span> linked_in = <a href="https://www.linkedin.com/in/jonah-burian/">"Jonah Burian"</a>;
+        <span class="hljs-keyword">link</span> github = <a href="https://github.com/jonahb27">"jonahb27"</a>;
+    }
+    </div>
+
+
+    <script>
+        // first, find all the div.code blocks
+        document.querySelectorAll('div.code').forEach(block => {
+        // then highlight each
+        hljs.highlightBlock(block);
+        });
+    </script>
+</body>
+
+</html>
