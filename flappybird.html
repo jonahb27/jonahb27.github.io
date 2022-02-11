@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>Flappybird Game</title>
+      <link rel="stylesheet" href="css/index.css">
+  </head>
+
+  <body>
+
+    <style>
+      #game{
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            text-align: center;
+        }
+
+        #instructions{
+            text-align: center;
+            color:white;
+        }
+
+        #game-area {
+            margin: auto;
+            position: relative;
+            width: 400px;
+            height: 300px;
+            border: 2px solid green;
+            background-color: deepskyblue;
+            overflow: hidden;
+        }
+
+        #bird {
+            position: absolute;
+            background: url('https://usercontent.one/wp/compucademy.net/wp-content/uploads/2020/11/robbybird.png?media=1636557737');
+            height: 27px;
+            width: 42px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            top: 20%;
+            left: 15%;
+        }
+
+        .pole {
+            position: absolute;
+            height: 100px;
+            width: 30px;
+            background-color: green;
+            right: 0px;
+        }
+
+        #pole-1 {
+            top: 0;
+        }
+
+        #pole-2 {
+            bottom: 0;
+        }
+
+        #game-info {
+            margin: 5px;
+            font-size: 18px;
+        }
+
+        #game-info p{
+            display: inline; 
+            padding: 20px;
+        }
+
+        #restart-btn {
+            padding: 5px 10px;
+            background-color: green;
+            color: white;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            outline: none;
+        }
+    </style>
+
+    <div class="modal" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">GAME OVER</h5>
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button> -->
+            </div>
+            <div class="modal-body">
+            <p>Nice Job! Try again 😊</p>
+            You scored: <span id="score_modal"></span>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div id="game">
+        <p id="instructions">🐥 Press space or click/tap to make the bird fly. 🐥</p>
+        <div id="game-area">
+        <div id="bird"></div>
+        <div class="pole" id="pole-1"></div>
+        <div class="pole" id="pole-2"></div>
+        </div>
+        <div id="game-info">
+        <p style="color:white">Score: <span style="color:white" id="score">0</span></p>
+        <button id="restart-btn">Restart</button>
+        <p style="color:white">Speed: <span style="color:white" id="speed">2</span></p>
+        </div>
+    </div><!-- game -->
+
+  </body>
+
+  <script>
+    "use strict";
+
+    // Save DOM objects to variables
+    const bird = document.querySelector('#bird');
+    const poles = document.querySelectorAll('.pole');
+    const pole1 = document.querySelector('#pole-1');
+    const pole2 = document.querySelector('#pole-2');
+    const scoreSpan = document.querySelector('#score');
+    const speedSpan = document.querySelector('#speed');
+    const gameArea = document.querySelector('#game-area');
+    const restartBtn = document.querySelector('#restart-btn');
+    const containerWidth = gameArea.clientWidth;
+    const containerHeight = gameArea.clientHeight;
+
+    // make some variables accesible to functions.
+    let speed;
+    let score;
+    let flapping;
+    let playing;
+    let scoreUpdated;
+
+    function restart() {
+        // Remove event listener to avoid multiple restarts.
+        restartBtn.removeEventListener('click', restart);
+        speed = 2;
+        score = 0;
+        scoreUpdated = false;
+        flapping = false;
+        playing = true;
+        speedSpan.textContent = speed;
+        scoreSpan.textContent = score;
+        poles.forEach((pole) => {
+            pole.style.right = 0;
+        });
+        bird.style.top = 20 + "%";
+        gameLoop();
+    }
+
+    function update() {
+        // Move poles
+        // check on SO if/why we need such a wordy method.
+        let polesCurrentPos = parseFloat(window.getComputedStyle(poles[0]).getPropertyValue("right"));
+
+        // Update score
+        if (polesCurrentPos > containerWidth * 0.85) { // or whatever bird pos is.
+            if (!scoreUpdated) {
+                score += 1;
+                scoreUpdated = true;
+            }
+            scoreSpan.textContent = score;
+        }
+
+        //  Check whether the poles went putside of game area.
+        if (polesCurrentPos > containerWidth) {
+
+            // Generate new poles. 
+            let newHeight = parseInt(Math.random() * 100);
+            // Change the poles' height
+            pole1.style.height = 100 + newHeight + "px";
+            pole2.style.height = 100 - newHeight + "px";
+
+            // Move poles back to the right-hand side of game area.
+            polesCurrentPos = 0; // This is based on the "right" property.
+
+            // Update speed
+            speed += 0.25;
+            speedSpan.textContent = parseInt(speed);
+            scoreUpdated = false;
+        }
+
+        poles.forEach((pole) => {
+            pole.style.right = polesCurrentPos + speed + "px";
+        });
+
+        // Move bird
+        let birdTop = parseFloat(window.getComputedStyle(bird).getPropertyValue("top"));
+        if (flapping) {
+            bird.style.top = birdTop + -2 + "px";
+        } else if (birdTop < containerHeight - bird.clientHeight) {
+            bird.style.top = birdTop + 2 + "px";
+        }
+
+        // Check for collisions
+        if (collision(bird, pole1) || collision(bird, pole2) || birdTop <= 0 || birdTop > containerHeight - bird.clientHeight) {
+            gameOver();
+        }
+    }
+
+    function gameOver() {
+        $('#myModal').modal('toggle')
+        $("#score_modal").text(score)
+        playing = false;
+        restartBtn.addEventListener('click', restart);
+    }
+
+    function gameLoop() {
+        update();
+        if (playing) {
+            requestAnimationFrame(gameLoop);
+        }
+    }
+
+    function collision(gameDiv1, gameDiv2) {
+        // Get the top left coords of the first div
+        let left1 = gameDiv1.getBoundingClientRect().left;
+        let top1 = gameDiv1.getBoundingClientRect().top;
+
+        // Get the dimensions of the first div
+        let height1 = gameDiv1.clientHeight;
+        let width1 = gameDiv1.clientWidth;
+
+        let bottom1 = top1 + height1;
+        let right1 = left1 + width1;
+        let left2 = gameDiv2.getBoundingClientRect().left;
+        let top2 = gameDiv2.getBoundingClientRect().top;
+        let height2 = gameDiv2.clientHeight;
+        let width2 = gameDiv2.clientWidth;
+        let bottom2 = top2 + height2;
+        let right2 = left2 + width2;
+
+        if (bottom1 < top2 || top1 > bottom2 || right1 < left2 || left1 > right2)
+            return false;
+        return true;
+    }
+
+    // Start flapping with space bar
+    document.addEventListener("keydown", function(e) {
+        var key = e.key;
+        if (key === " " && playing) {
+            flapping = true;
+        }
+    });
+
+    // Stop flapping with space bar
+    document.addEventListener("keyup", function(e) {
+        e.preventDefault(); // Stops weird behaviour where releasing space calls restart()
+        var key = e.key;
+        if (key === " " && playing) {
+            flapping = false;
+        }
+    });
+
+    // Start flapping with mousedown
+    gameArea.addEventListener("mousedown", function(e) {
+        if (playing) {
+            flapping = true;
+        }
+    });
+
+    // stop flapping with mousedown
+    gameArea.addEventListener("mouseup", function(e) {
+        if (playing) {
+            flapping = false;
+        }
+    });
+
+    restart();
+    
+  </script>
+</html>
