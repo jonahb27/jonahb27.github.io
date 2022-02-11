@@ -87,3 +87,7 @@ Based on Jesse Leite's Atom syntax theme 'An Old Hope' – https://github.com/Je
 {
   font-weight: bold;
 }
+
+a:active {
+  color: none;
+}
