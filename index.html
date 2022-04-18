@@ -23,7 +23,7 @@
 <body>
     <div class="code" style="display: block; margin-left: auto;margin-right: auto; height: 100%; width: 100%;">
     #include <a href="resume.pdf" target="_blank">"resume.pdf"</a>
-
+    #include "link.h"
     #define FIRST_NAME  "Jonah"
     #define LAST_NAME   "Burian"
 
@@ -32,33 +32,33 @@
 
     int main(int argc, char** argv) {
 
-        char Location[20] = "Philadelpha, PA";
+        char* Location = "Philadelpha, PA";
 
         while (current_year >= 2019 && current_year <= 2023) {
-            char Occupation[20] = "Student"; 
+            char* Occupation = "Student";
         }
 
     }
 
-    struct education {
-        char University[30] = "University of Pennsylvania";
-        char School[40] = "School of Engineering and Applied Sciences";
-        char** Major[20] = {"NETS", "Economics"};
+    typedef struct education {
+        char* University = "University of Pennsylvania";
+        char* School = "School of Engineering and Applied Sciences";
+        char** Major = {"NETS", "Economics"};
         // NETS is a specialized program at Penn that combines Computer Science and Systems Engineering
-        char Degree[30] = "Bachelor of Science in Engineering";
+        char* Degree = "Bachelor of Science in Engineering";
         int Graduation_Year = 2023;
         char* Minor = "Math";
         float gpa = 4.0;
-    };
+    } education ;
 
 
-    struct tools_and_skills {
+    typedef struct tools_and_skills {
         char** programmming = {"Java", "Elixir", "Solidity", "Python", "HTML", "JavaScript", "R", "Git", "LaTeX", "OCaml", "Rust"};
         char** software = {"Agile Methodology", "Autodesk Fusion", "Coda", "DynamoDB", "Ink!", "Hardhat", "JIRA", "Postman",
                             "PETAL stack (Phoenix, Elixir, TailwindCSS, Alpine.js, LiveView)", "Stash", "Substrate", "Swagger", "Truffle", "Web3"
         };
         char** languages = {"English", "Hebrew"}
-    };
+    } tools_and_skills ;
 
     void contact() {
         <span class="hljs-keyword">link</span> email = <a href="mailto:burianj@seas.upenn.edu" target="_blank">"burianj@seas.upenn.edu"</a>;
