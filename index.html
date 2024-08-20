@@ -4,19 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jonah Burian</title>
-    <!-- <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='90' font-size='90'>🫡</text></svg>"> -->
     <link rel="icon" href="https://pbs.twimg.com/profile_images/1722261383784591360/rTIX37q7_400x400.jpg" type="image/jpeg">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+        }
+        .content {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
         }
         h1 {
             font-size: 2em;
@@ -31,13 +33,6 @@
         a {
             color: #0073e6;
             text-decoration: none;
-        }
-        .content {
-            width: 100%;
-            max-width: 800px;
-        }
-        .social-links, .articles, .helped-articles, .about-me {
-            margin: 1em 0;
         }
         ul {
             list-style-type: disc;
@@ -82,7 +77,8 @@
             </ul>
         </div>
         <div class="about-me">
-            <h2>Speaches</h2>
+            <h2>Speeches</h2>
+            
             <ul>
                 <li><a href="https://www.youtube.com/watch?v=01dnINiLhAk&themeRefresh=1">Protocol MEV Capture @ Modular Summit 3.0 in Brussles</a></li>
             </ul>
