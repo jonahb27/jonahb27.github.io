@@ -6,52 +6,92 @@
     <title>Jonah Burian</title>
     <link rel="icon" href="https://pbs.twimg.com/profile_images/1722261383784591360/rTIX37q7_400x400.jpg" type="image/jpeg">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+       body {
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            background-color: #f4f4f4;
+            background-color: #ffffff;
             display: flex;
             justify-content: center;
         }
+
         .content {
             width: 100%;
             max-width: 800px;
             padding: 20px;
+            background-color: #ffffff;
         }
+
         h1 {
-            font-size: 2em;
+            font-size: 1.8em;
             margin-bottom: 0.5em;
             text-align: center;
+            color: #624e0a;
         }
+
         h2 {
-            font-size: 1.5em;
-            margin-bottom: 0.5em;
+            font-size: 1.4em;
+            margin-bottom: 1em;
             text-align: left;
+            border-bottom: 2px solid #cdaf21;
+            padding-bottom: 5px;
+            color: #624e0a;
         }
+
         a {
-            color: #0073e6;
+            color: #cdaf21;
             text-decoration: none;
+            transition: color 0.3s, text-decoration 0.3s;
         }
-        ul {
-            list-style-type: disc;
-            padding-left: 20px;
+
+        a:hover {
+            color: #d4b72e;
+            text-decoration: underline;
         }
+
         .profile-image {
             text-align: center;
             margin-bottom: 20px;
         }
+
         .profile-image img {
             border-radius: 50%;
             max-width: 150px;
+            width: 100%;
             height: auto;
         }
+
         .profile-name {
             text-align: center;
-            font-size: 1.8em;
+            font-size: 1.5em;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            color: #624e0a;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .social-links {
+            text-align: center;
+            font-size: 1em;
+        }
+
+        .social-links {
+            text-align: center;
+            font-size: 1em;
+        }
+
+        .social-links a.separator {
+            color: #cdaf21;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -62,7 +102,8 @@
         </div>
         <div class="profile-name">Jonah Burian</div>
         <div class="social-links" style="text-align: center;">
-            <a href="https://x.com/_JonahB_">Twitter</a> | 
+            <a href="https://x.com/_JonahB_">Twitter</a>
+            <a class="separator">|</a>
             <a href="https://www.linkedin.com/in/jonah-burian/">LinkedIn</a>
         </div>
         <div class="Papers">
